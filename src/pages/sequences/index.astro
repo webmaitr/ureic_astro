@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const allCourses = (await getCollection('sequence'));
+---
+<BaseLayout title="Sequences">
+<h1>Mes cours</h1>
+<ul>
+	{allCourses.map((cours) => <li><a href={`/sequences/${cours.id}`}>{cours.data.title}</a></li>)}
+</ul>
+</BaseLayout>

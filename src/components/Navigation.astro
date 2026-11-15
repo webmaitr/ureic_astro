@@ -1,0 +1,144 @@
+---
+const navLinks = [
+  {href: '/', label: 'Accueil'},
+  {href: '/a-propos', label: 'À propos'},
+  {href: '/services', label: 'Services'},
+  {href: '/blog', label: 'Blog'},
+  {href: '/sequences', label: 'Parcours'},
+  {href: '/contact', label: 'Contact'},
+]
+
+---
+<button class="hamburger" aria-label="Menu principal" aria-expanded="false" aria-controls="nav-menu">
+  <span class="bar"></span>
+  <span class="bar"></span>
+  <span class="bar"></span>
+</button>
+
+<nav id="nav-menu" class="nav-links">
+  <ul role="list">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+</nav>
+
+<script>
+  function setupNav() {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-links');
+
+    if (!hamburger || !navMenu) return;
+
+    hamburger.addEventListener('click', () => {
+      const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', String(!isExpanded));
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    // Ferme le menu au clic sur un lien
+    navMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+  }
+
+  // Compatible avec les View Transitions d'Astro
+  setupNav();
+  document.addEventListener('astro:page-load', setupNav);
+</script>
+
+<style>
+  @layer components {
+    .hamburger {
+      display: flex;
+
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 50px;
+      /* left: 0; */
+      right: 0;
+      background-color: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 1.5rem;
+    }
+
+    .nav-links.active {
+      display: block;
+    }
+
+    .nav-links ul {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #111827;
+    }
+
+    .bar {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--color-text-primary);
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    /* Transformation en croix (X) */
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+    @media screen and (min-width: 768px) {
+      .hamburger {
+        display: none
+      };
+
+    .nav-links {
+      display: block;
+      position: unset;
+      background-color: unset;
+      border: 0;
+    }
+
+      .nav-links ul {
+        gap: 1.5rem;
+        flex-direction: row;
+      }
+
+
+    }
+
+
+
+  }
+</style>

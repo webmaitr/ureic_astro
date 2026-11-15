@@ -1,0 +1,60 @@
+---
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {site} from '../consts'
+
+---
+
+<BaseLayout title="Mentions Legales">
+	<h1>Mentions Légales</h1>
+	<h2 id="editeur">&Eacute;diteur du site</h2>
+	<p>Le site {site.title} est édité par {site.editeur}</p>
+	<p>{site.editeur} est une {site.formeJuridique} ({site.juridic}) au capital social de {site.capital} euros.</p>
+	<p>Son siège social est situé : {site.siege}.</p>
+	<h3>Coordonnées de contact</h3>
+	<p>E-mail : <a href="mailto:{site.mail}">{site.mail}</a></p>
+	{site.fixe && <p>Téléphone fixe : {site.fixe}</p>}
+	{site.mobile && <p>Téléphone mobile : {site.mobile}</p>}
+	<h3>Numéros d'identification</h3>
+	<p>Immatriculation : {site.immatriculation}</p>
+	<p>SIRET : {site.siret}</p>
+	<p>TVA intracommunautaire : {site.tva}</p>
+
+	<h3>Directeur de la publication</h3>
+	<p>Le directeur de la publication est {site.directeur} en sa qualité de {site.position} de {site.editeur}.</p>
+
+	<h2 id="hebergeur">Hébergeur du site</h2>
+	<p>Les serveurs physiques et l'espace de stockage cloud sont loués par la SASU "The trou de ver" auprès de la société LWS - Ligne Web Services - SAS au capital de 500 000 euros, inscrite au RCS de Paris sous le numéro B 851 993 683 00024, et dont le siège social est situé à 10 rue de Penthièvre 75008 Paris, France</p>
+<p>Contact de l'hébergeur : +33 1 77 62 30 03</p>
+<p>Site internet officiel : www.lws.fr</p>
+<p>L'ensemble des serveurs de notre hébergeur sont situés en France, garantissant que toutes les données de notre plateforme (comptes utilisateurs, progressions pédagogiques) sont stockées au sein de l'Union Européenne conformément au RGPD.</p>
+
+<h2 id="conception">Conception et Réalisation du site</h2>
+<p>Le site {site.title} a été conçu et réalisé par The trou de ver, Société par Actions Simplifiée Unipersonnelle (SASU) au capital social de 4000 euros, dont le siège est situé au 19A Boulevard de Colombier, 35000 Rennes.</p>
+
+<p>Conformément à la loi PACTE du 22 mai 2019, la société The trou de ver adopte la qualité de société à mission, confirmant ainsi son ancrage et ses engagements en matière sociale et environnementale. Sa raison d'être est exprimée comme suit : <span class="raison-d-etre" >"Contribuer à développer des systèmes éducatifs offrant à toutes et à tous des possibilités d'apprentissage de qualité tout au long de la vie, et à donner aux apprenants les moyens d'être des citoyens du monde créatifs et responsables."</span></p>
+<ul>
+	<li>Site web : <a href="https://thetroudever.com">thetroudever.com</a></li>
+	<li>contact : Laurent VAN REETH</li>
+	<li>E-mail : <a href="mailto:direction@thetroudever.com">direction@thetroudever.com</a></li>
+</ul>
+
+<h2 id="NDA">Pas un organisme de formation</h2>
+<p>Les prestations d'ordre pédagogique proposées par The trou de ver, et notamment les prestations proposées sur le site {site.title} relèvent de la transmission de compétences et de l'accompagnement pédagogique dans une optique d'éducation populaire. Ces prestations n'entrent pas dans le champ de la formation professionnelle continue.</p>
+<p>Conformément aux dispositions de l'article L. 6351-1 du Code du travail, il est précisé que The trou de ver n'est pas enregistré en tant qu'organisme de formation professionnelle auprès de la DREETS et ne dispose pas de numéro de déclaration d'activité (NDA).</p>
+<p>Par conséquent :</p>
+<ul>
+	<li>
+		<strong>Absence de prise en charge financière publique ou mutualisée :</strong> 
+		<p>les parcours guidés relèvent de l'éducation populaire et ne sont pas éligibles aux financements publics ou paritaires (Compte Personnel de Formation - CPF, OPCO, France Travail, etc.). Le règlement des prestations demeure exclusivement à la charge du client (ou de son employeur sur fonds propres).</p>
+	</li>
+	<li>
+		<strong>Régime fiscal :</strong> 
+		<p>les prestations sont assujetties au régime normal de la TVA.</p>
+	</li>
+	<li>
+		<strong>Nature des attestations</strong>
+		<p>Les parcours guidés ne débouchent pas sur une certification inscrite au RNCP ou au RS. Une attestation de suivi de parcours peut être remise au terme de la session, mais elle n'a pas de valeur diplômantes ou certifiante reconnue par l'&Eacute;tat.</p>
+	</li>
+</ul>
+</BaseLayout>

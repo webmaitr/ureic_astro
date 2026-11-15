@@ -1,0 +1,45 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const {title, description} = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<style is:inline>
+			@layer reset, tokens, base, prose, components, page, utilities;
+		</style>
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/monfavicon.svg" />
+		<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<Font cssVariable='--font-atk-hyper' preload />
+	</head>
+	<body>
+		<Header />
+		<main>
+		<slot />
+	</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		width: 100%;
+		height: 100%;
+	}
+	
+</style>

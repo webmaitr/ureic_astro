@@ -1,0 +1,126 @@
+/* 1. Box-sizing universel et plus intuitif */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Suppression des marges et paddings par défaut */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. Comportement fluide du document */
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Défilement fluide par défaut */
+  scroll-behavior: smooth;
+}
+
+/* 4. Configuration minimale du body */
+body {
+  min-height: 100vh;
+  min-height: 100dvh; /* Hauteur dynamique sur mobile */
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Liens textuels distincts de la couleur seule (critère WCAG 1.4.1) */
+a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1.5px;
+}
+
+a:hover {
+  text-decoration-thickness: 2.5px;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* 5. Éléments médias réactifs préservant le ration et comportement bloc */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 6. Héritage des polices pour les champs de formulaire */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+/* Éléments interactifs : zone de clic minimale (WCAG 2.5.8 : au moins 24x24px, idéalement 44x44px) */
+button, input, select, textarea, a {
+  min-height: 2.75rem; /* ~44px */
+}
+
+/* Évite le redimensionnement horizontal cassant les layouts */
+textarea {
+  resize: vertical;
+}
+
+/* 7. Retrait des listes à puces uniquement quand un rôle ou une classe est présent */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* 8. Gestion des titres et des césures */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance; /* Évite les mots isolés en fin de ligne */
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+p,
+li,
+dd,
+figcaption {
+  text-wrap: pretty; /* Évite les veuves et orphelines */
+  max-width: 70ch;   /* Longueur de lecture optimale pour la charge cognitive */
+}
+
+/* Focus visible obligatoire (critère WCAG 2.4.7 et 2.4.11) */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color) !important;
+  outline-offset: var(--focus-ring-offset) !important;
+}
+
+/* Ne pas supprimer l'outline sur :focus simple sans alternative */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* 9. Suppression des animations pour les utilisateurs sensibles (A11y / Neurodiversité) */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
