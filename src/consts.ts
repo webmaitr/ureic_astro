@@ -2,9 +2,9 @@
 // export const site_slogan = 'Le slogan du site';
 
 export const site = 
-  {title: 'NomDuSite',
-    url: 'https://NomDuSite',
-    slogan: 'Le slogan du site',
+  {title: "L'URÉIC",
+    url: 'https://ureic.fr',
+    slogan: "L'Université Rocambolesque d'Éducation à l'Intelligence Collective",
     editeur: 'The trou de ver',
     formeJuridique: 'Société par actions simplifiée unipersonnelle',
     juridic : 'SASU',

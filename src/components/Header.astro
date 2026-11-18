@@ -5,21 +5,26 @@ import Navigation from './Navigation.astro'
 ---
 
 <header>
+  <div class="header-container">
   <a href="/">
   <img class="site-logo" src="/logo_template.svg" alt="Nom du site" width="151" height="156" />
 </a>
   <div class="site-title">
     <p>{site.title}</p>
-  <p>{site.slogan}</p>
+  
   </div>
     <Navigation />
-
+  </div>
+<p>{site.slogan}</p>
 </header>
 
 <style>
   @layer components {
     header {
       border-bottom: 1px solid var(--color-border);
+      .header-container {
+        display: flex;
+      }
       .site-title {
         flex: 1;
       }

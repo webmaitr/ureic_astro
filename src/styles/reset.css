@@ -77,6 +77,10 @@ ul[role='list'],
 ol[role='list'] {
   list-style: none;
 }
+ul, ol {
+  padding-left: var(--space-sm);
+  margin-left: var(--space-sm);
+}
 
 /* 8. Gestion des titres et des césures */
 h1,
