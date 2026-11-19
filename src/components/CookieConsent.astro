@@ -5,8 +5,12 @@ import 'vanilla-cookieconsent/dist/cookieconsent.css';
 <script>
   import * as CookieConsent from 'vanilla-cookieconsent';
 
-  const runCookieConsent = () => {
+  const initCookieConsent = () => {
     CookieConsent.run({
+      // Supprime automatiquement les cookies GA si la catégorie 'analytics' est décochée
+      manageScriptTags: true,
+      autoClearCookies: true,
+
       guiOptions: {
         consentModal: {
           layout: 'box',
@@ -16,6 +20,7 @@ import 'vanilla-cookieconsent/dist/cookieconsent.css';
           layout: 'box',
         },
       },
+
       categories: {
         necessary: {
           enabled: true,
@@ -23,33 +28,50 @@ import 'vanilla-cookieconsent/dist/cookieconsent.css';
         },
         analytics: {
           enabled: false,
+          // Suppression automatique des cookies Google Analytics en cas de refus/révocation
+          autoClear: {
+            cookies: [
+              { name: /^_ga/ }, // Supprime _ga et _ga_XXXXXXXXXX
+              { name: '_gid' },
+            ],
+          },
         },
       },
+
+      // Si l'utilisateur révoque 'analytics' après l'avoir accepté, on recharge la page
+      // pour décharger le script gtag de la mémoire du navigateur
+      onChange: ({ changedCategories }) => {
+        if (changedCategories.includes('analytics') && !CookieConsent.acceptedCategory('analytics')) {
+          window.location.reload();
+        }
+      },
+
       language: {
         default: 'fr',
         translations: {
           fr: {
             consentModal: {
-              title: 'Nous utilisons des cookies',
-              description: 'Ce site utilise des cookies essentiels pour son fonctionnement et des cookies analytiques pour mesurer son audience.',
+              title: 'Gestion des cookies',
+              description:
+                'Nous utilisons des cookies pour assurer le bon fonctionnement du site et, avec votre accord, mesurer notre audience via Google Analytics.',
               acceptAllBtn: 'Tout accepter',
               acceptNecessaryBtn: 'Tout refuser',
-              showPreferencesBtn: 'Gérer les préférences',
+              showPreferencesBtn: 'Personnaliser',
             },
             preferencesModal: {
-              title: 'Préférences des cookies',
+              title: 'Préférences de confidentialité',
               acceptAllBtn: 'Tout accepter',
               acceptNecessaryBtn: 'Tout refuser',
-              savePreferencesBtn: 'Enregistrer',
+              savePreferencesBtn: 'Enregistrer mes choix',
               sections: [
                 {
                   title: 'Cookies strictement nécessaires',
-                  description: 'Indispensables au bon fonctionnement du site.',
+                  description: 'Indispensables au fonctionnement technique du site et à la mémorisation de vos choix.',
                   linkedCategory: 'necessary',
                 },
                 {
-                  title: 'Cookies analytiques',
-                  description: 'Nous aident à comprendre comment vous utilisez le site.',
+                  title: 'Mesure d’audience (Google Analytics)',
+                  description: 'Permet d’analyser la fréquentation et l’utilisation du site de manière statistique.',
                   linkedCategory: 'analytics',
                 },
               ],
@@ -60,7 +82,6 @@ import 'vanilla-cookieconsent/dist/cookieconsent.css';
     });
   };
 
-  // Exécution au chargement initial et lors de la navigation avec View Transitions
-  runCookieConsent();
-  document.addEventListener('astro:after-swap', runCookieConsent);
+  initCookieConsent();
+  document.addEventListener('astro:after-swap', initCookieConsent);
 </script>

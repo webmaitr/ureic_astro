@@ -11,11 +11,37 @@ interface Props {
 }
 
 const {title, description} = Astro.props
+const GA_MEASUREMENT_ID = 'GTM-KMZ4S8KR'
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
+		<!-- 1. Bibliothèque GA4 (bloquée tant que 'analytics' n'est pas accepté) -->
+		<script is:inline type="text/plain" data-category="analytics" async src=`https://www.googletagmanager.com/gtm.js?id=${GA_MEASUREMENT_ID}`></script>
+		<!-- 2. Initialisation GA4 (bloquée tant que 'analytics' n'est pas accepté) -->
+<script is:inline type="text/plain" data-category="analytics" define:vars={{ GA_MEASUREMENT_ID }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+	// send_page_view est géré proprement ci-dessous pour supporter les View Transitions
+      gtag('config', GA_MEASUREMENT_ID, {
+        send_page_view: false,
+      });
+
+      // Envoie la vue de page initiale et à chaque navigation Astro (View Transitions)
+      function trackPageView() {
+        gtag('event', 'page_view', {
+          page_title: document.title,
+          page_location: window.location.href,
+          page_path: window.location.pathname,
+        });
+      }
+
+      trackPageView();
+      document.addEventListener('astro:page-load', trackPageView);
+</script>
 		<meta charset="utf-8" />
 		<style is:inline>
 			@layer reset, tokens, base, prose, components, page, utilities;

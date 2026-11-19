@@ -1,7 +1,7 @@
 ---
 import {site} from '../consts'
 import Navigation from './Navigation.astro'
-
+import  SocialLinks from './SocialLinks.astro';
 ---
 
 <header>
@@ -16,6 +16,7 @@ import Navigation from './Navigation.astro'
     <Navigation />
   </div>
 <p>{site.slogan}</p>
+<SocialLinks />
 </header>
 
 <style>
@@ -32,7 +33,9 @@ import Navigation from './Navigation.astro'
         .logo-infini {
           fill:#fff;
         }
-        
+      }
+      .social-links {
+        justify-content: right;
       }
     }
   }
